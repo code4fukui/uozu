@@ -1,6 +1,23 @@
-﻿年,学校数,学級数,児童数（人）,教員数（人）
-平成25年,12 ,113 ,"2,212 ",182 
-平成26年,12 ,110 ,"2,154 ",181 
-平成27年,12 ,108 ,"2,090 ",179 
-平成28年,10 ,103 ,"2,045 ",167 
-平成29年,10 ,98 ,"1,936 ",166 
+﻿<!DOCTYPE html><html><head>
+<title>魚津の小学生数</title>
+<script src="https://aframe.io/releases/1.1.0/aframe.min.js"></script>
+<script type="module">
+import { CSV } from "https://js.sabae.cc/CSV.js";
+import { box } from "./box.js";
+
+onload = async () => {
+    const data = CSV.toJSON(await CSV.fetch("https://code4fukui.github.io/uozu/elementary-uozu.csv"));
+    for (let i = 0; i < 4; i++) {
+      const n = parseInt(data[i]["児童数（人）"].replace(/,/g, "").trim());
+      box(-10 + 5 * i, 0, -8, 2, n / 200, 2);
+
+      const m = parseInt(data[i]["学級数"].replace(/,/g, "").trim());
+      box(-10 + 5 * i, 0, -5, 2, m / 20, 2);
+      console.log(n, m);
+    }
+};
+</script>
+</head>
+<body>
+
+<a-scene xbackground="color: black"></a-scene>
